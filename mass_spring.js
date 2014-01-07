@@ -316,7 +316,7 @@ function Model() {
         yaw:         0, // y-coordinate
         roll:        0, // z-coordinate
 
-        side:        3, // projection params
+        side:        5, // projection params
         near:        90,
         mid:         100,
         far:         150,
@@ -327,8 +327,11 @@ function Model() {
 
     this.updateCamera();
 
-    this.vertices = []
-    this.edges    = []
+
+
+
+    // this.vertices = []
+    // this.edges    = []
 
 
 
@@ -343,83 +346,189 @@ function Model() {
     //     }
 
 
-    // 14 hexagons 6 quads
-    var num_vertices = 36;
-    var spec  = [ [  0,  1,  7, 13, 12,  6 ],
-                  [  1,  2,  8, 15, 14,  7 ],
-                  [  2,  3,  9, 17, 16,  8 ],
-                  [  3,  4, 10, 19, 18,  9 ],
-                  [  4,  5, 11, 21, 20, 10 ],
-                  [  5,  0,  6, 23, 22, 11 ],
-                  [ 12, 13, 25, 31, 30, 24 ],
-                  [ 14, 15, 26, 32, 31, 25 ],
-                  [ 16, 17, 27, 33, 32, 26 ],
-                  [ 18, 19, 28, 34, 33, 27 ],
-                  [ 20, 21, 29, 35, 34, 28 ],
-                  [ 22, 23, 24, 30, 35, 29 ],
-                ];
+    // // 14 hexagons 6 quads
+    // var num_vertices = 36;
+    // var spec  = [ [  0,  1,  7, 13, 12,  6 ],
+    //               [  1,  2,  8, 15, 14,  7 ],
+    //               [  2,  3,  9, 17, 16,  8 ],
+    //               [  3,  4, 10, 19, 18,  9 ],
+    //               [  4,  5, 11, 21, 20, 10 ],
+    //               [  5,  0,  6, 23, 22, 11 ],
+    //               [ 12, 13, 25, 31, 30, 24 ],
+    //               [ 14, 15, 26, 32, 31, 25 ],
+    //               [ 16, 17, 27, 33, 32, 26 ],
+    //               [ 18, 19, 28, 34, 33, 27 ],
+    //               [ 20, 21, 29, 35, 34, 28 ],
+    //               [ 22, 23, 24, 30, 35, 29 ],
+    //             ];
+
+
+    // // SLinX
+    // var num_vertices = 28;
+    // var spec  = [ 
+    //               [ 18, 19, 26, 11, 14,  1 ],
+    //               [ 11, 26, 27, 16, 17, 10 ],
+    //               [ 15, 14, 11, 10, 21, 20 ],
+    //               [ 21, 10, 17,  2, 23,  8 ],
+    //               [  5, 24, 13, 12,  3,  0 ],
+    //               [ 24, 19, 18, 13         ],
+    //               [  8,  9, 20, 21         ],
+    //               [ 12, 13, 18,  1,  6,  7 ],
+    //               [  3, 12,  7, 22, 23,  2 ],
+    //               [  9, 22,  7,  6, 15, 20 ],
+    //               [  4,  5,  0, 25         ],
+    //               [  4, 25, 16, 27         ]
+    //             ];
     
 
     // 14 hexagons 6 quads
-    var num_vertices = 16;
-    var spec  = [ [  0,  1,  5,  4         ],
-                  [  4,  5,  6,  7,  8,  9 ],
-                  [ 10, 11, 12, 13, 14, 15 ],
-                  [  8,  7, 11, 10         ],
-                  [ 14, 13,  2,  3         ],
-                  [  7,  6, 12, 11         ],
-                  [  9,  8, 10, 15         ],
-                  [  0,  1,  2,  3         ],
-                  [  2,  3, 14, 13         ]
-                ];
+    // var num_vertices = 16;
+    // var spec  = [ [  0,  1,  5,  4         ],
+    //               [  4,  5,  6,  7,  8,  9 ],
+    //               [ 10, 11, 12, 13, 14, 15 ],
+    //               [  8,  7, 11, 10         ],
+    //               [ 14, 13,  2,  3         ],
+    //               [  7,  6, 12, 11         ],
+    //               [  9,  8, 10, 15         ],
+    //               [  0,  1,  2,  3         ],
+    //               [  2,  3, 14, 13         ]
+    //             ];
 
-    // initialize a simple cube model
-    for (var i=0;i<num_vertices;i++) {
-	this.vertices.push(new Vertex());
+    // // initialize a simple cube model
+    // for (var i=0;i<num_vertices;i++) {
+    //     this.vertices.push(new Vertex());
+    // }
+
+    // var V = this.vertices; // reference
+
+    // var codes = {}
+
+    // for (var i=0;i<spec.length;i++) {
+    //     var seq = spec[i];
+    //     var n = seq.length;
+    //     for (var j=1;j<n;j++) {
+    //         var a = seq[j-1];
+    //         var b = seq[j];
+    //         var code = "" + ( a * 1000 + b );
+    //         if (!(code in codes)) {
+    //             this.edges.push(new Edge(V[a], V[b]));
+    //             codes[code] = 1;
+    //         }
+    //     }
+    //     if (n > 2) {
+    //         var a = seq[n-1];
+    //         var b = seq[0];
+    //         var code = "" + (a * 1000 + b );
+    //         if (!(code in codes)) {
+    //             this.edges.push(new Edge(V[a], V[b]));
+    //             codes[code] = 1;
+    //         }
+    //     }
+    // }
+
+
+    var models = { 
+        "L53": { 
+            num_vertices:16,
+            spec: [ [  0,  1,  5,  4         ],
+                    [  4,  5,  6,  7,  8,  9 ],
+                    [ 10, 11, 12, 13, 14, 15 ],
+                    [  8,  7, 11, 10         ],
+                    [ 14, 13,  2,  3         ],
+                    [  7,  6, 12, 11         ],
+                    [  9,  8, 10, 15         ],
+                    [  0,  1,  2,  3         ],
+                    [  2,  3, 14, 13         ]
+                  ]
+        },
+        "SLinX": { num_vertices:28,
+                   spec:[ 
+                       [ 18, 19, 26, 11, 14,  1 ],
+                       [ 11, 26, 27, 16, 17, 10 ],
+                       [ 15, 14, 11, 10, 21, 20 ],
+                       [ 21, 10, 17,  2, 23,  8 ],
+                       [  5, 24, 13, 12,  3,  0 ],
+                       [ 24, 19, 18, 13         ],
+                       [  8,  9, 20, 21         ],
+                       [ 12, 13, 18,  1,  6,  7 ],
+                       [  3, 12,  7, 22, 23,  2 ],
+                       [  9, 22,  7,  6, 15, 20 ],
+                       [  4,  5,  0, 25         ],
+                       [  4, 25, 16, 27         ]
+                   ] },
+        "Hex14Quad6": {
+            num_vertices:36,
+            spec: [ [  0,  1,  7, 13, 12,  6 ],
+                    [  1,  2,  8, 15, 14,  7 ],
+                    [  2,  3,  9, 17, 16,  8 ],
+                    [  3,  4, 10, 19, 18,  9 ],
+                    [  4,  5, 11, 21, 20, 10 ],
+                    [  5,  0,  6, 23, 22, 11 ],
+                    [ 12, 13, 25, 31, 30, 24 ],
+                    [ 14, 15, 26, 32, 31, 25 ],
+                    [ 16, 17, 27, 33, 32, 26 ],
+                    [ 18, 19, 28, 34, 33, 27 ],
+                    [ 20, 21, 29, 35, 34, 28 ],
+                    [ 22, 23, 24, 30, 35, 29 ],
+                  ] },
+        "xx50": {
+            num_vertices:50,
+            spec:  [ [3,4,29,30,31,32],
+                     [1,2,33,34],
+                     [5,6,45,46,25,26,27,28],
+                     [11,12,13,14,19,20,37,38],
+                     [15,16,17,18],
+                     [9,10,35,36,41,42],
+                     [23,24,43,44,49,0],
+                     [7,8,39,40],
+                     [21,22,47,48],
+                     [5,28,33,2,31,30],
+                     [1,34,3,32],
+                     [27,26,35,10,37,20,29,4],
+                     [13,12,43,24,45,6,15,18],
+                     [25,46,47,22,49,44],
+                     [17,16,19,14],
+                     [11,38,39,8,41,36],
+                     [7,40,9,42],
+                     [21,48,23,0],
+                     [1,32,31,2],
+                     [5,30,29,20,19,16,15,6],
+                     [3,34,33,28,27,4],
+                     [11,36,35,26,25,44,43,12],
+                     [9,40,39,38,37,10],
+                     [23,48,47,46,45,24],
+                     [13,18,17,14],
+                     [21,0,49,22],
+                     [7,42,41,8]] }
     }
 
-    var V = this.vertices; // reference
 
-    for (var i=0;i<spec.length;i++) {
-	var seq = spec[i];
-        var n = seq.length;
-        for (var j=1;j<n;j++) {
-            this.edges.push(new Edge(V[seq[j-1]], V[seq[j]]));
-        }
-        if (n > 2) {
-            this.edges.push(new Edge(V[seq[n-1]], V[seq[0]]));
-        }
-    }
 
     // create an svg
-    var svg = d3.select("body")
+    this.svg = d3.select("body")
         .append("svg")
         .attr("width","500px")
         .attr("height","500px")
         .style("background","black");
-        
-    //This is the accessor function we talked about above
-    var lineFunction = d3.svg.line()
-        .x(function(d) { return d.x; })
-        .y(function(d) { return d.y; })
-        .interpolate("linear");
 
-    // create an svg line segment for each edge of the model
-    for (var i=0;i<this.edges.length;i++) {
-        var e  = this.edges[i];
-        e.element = svg.append("path")
-            .attr("d", lineFunction([
-                this.transform_matrix.transform(e.v1.pos),
-                this.transform_matrix.transform(e.v2.pos)]
-            ))
-            .attr("stroke", "white")
-            .attr("stroke-width", 1)
-            .attr("fill", "none");
-    }
+    // add buttons
+    d3.select("body")
+        .selectAll("button")
+        .data([{name: "SLinX"},
+               {name: "Hex14Quad6"},
+               {name: "L53"},
+               {name: "xx50"}])
+        .enter()
+        .append("button")
+        .text(function(d) { return d.name; })
+        .on("click", function (d) {
+            that.updateModel(models[d.name].num_vertices, models[d.name].spec);
+        });
 
 
-    var that = this;
-    svg
+
+        var that = this;
+    this.svg
         .on("click", function() {
             if (d3.event.shiftKey) {
                 that.zoom(-1);
@@ -443,12 +552,34 @@ function Model() {
                 that.yaw(+1);
             }
             else if (d3.event.keyCode == 38) {
-                that.roll(+1);
+                that.roll(-1);
             }
             else if (d3.event.keyCode == 40) {
                 that.roll(+1);
             }
         });
+
+
+
+
+    this.updateModel(28, [ 
+                  [ 18, 19, 26, 11, 14,  1 ],
+                  [ 11, 26, 27, 16, 17, 10 ],
+                  [ 15, 14, 11, 10, 21, 20 ],
+                  [ 21, 10, 17,  2, 23,  8 ],
+                  [  5, 24, 13, 12,  3,  0 ],
+                  [ 24, 19, 18, 13         ],
+                  [  8,  9, 20, 21         ],
+                  [ 12, 13, 18,  1,  6,  7 ],
+                  [  3, 12,  7, 22, 23,  2 ],
+                  [  9, 22,  7,  6, 15, 20 ],
+                  [  4,  5,  0, 25         ],
+                  [  4, 25, 16, 27         ]
+                ]);
+
+
+
+
 
     var that = this;
     this.timer = $.timer(function() { 
@@ -456,6 +587,132 @@ function Model() {
     }, 10, true);
 
 }
+
+Model.prototype.updateModel = function(num_vertices, spec) {
+
+    this.vertices = [];
+    this.edges    = [];
+
+    // initialize a simple cube model
+    for (var i=0;i<num_vertices;i++) {
+	this.vertices.push(new Vertex());
+    }
+
+    var V = this.vertices; // reference
+
+    var codes = {}
+
+    for (var i=0;i<spec.length;i++) {
+	var seq = spec[i];
+        var n = seq.length;
+        for (var j=1;j<n;j++) {
+            var a = seq[j-1];
+            var b = seq[j];
+            var code = "" + ( a * 1000 + b );
+            if (!(code in codes)) {
+                this.edges.push(new Edge(V[a], V[b]));
+                codes[code] = 1;
+            }
+        }
+        if (n > 2) {
+            var a = seq[n-1];
+            var b = seq[0];
+            var code = "" + (a * 1000 + b );
+            if (!(code in codes)) {
+                this.edges.push(new Edge(V[a], V[b]));
+                codes[code] = 1;
+            }
+        }
+    }
+
+
+
+
+
+
+    // remove all elements of svg
+    this.svg.selectAll("path").data([]).exit().remove();
+        
+    //This is the accessor function we talked about above
+    var lineFunction = d3.svg.line()
+        .x(function(d) { return d.x; })
+        .y(function(d) { return d.y; })
+        .interpolate("linear");
+
+    // create an svg line segment for each edge of the model
+    for (var i=0;i<this.edges.length;i++) {
+        var e  = this.edges[i];
+        e.element = this.svg.append("path")
+            .attr("d", lineFunction([
+                this.transform_matrix.transform(e.v1.pos),
+                this.transform_matrix.transform(e.v2.pos)]
+            ))
+            .attr("stroke", "white")
+            .attr("stroke-width", 1)
+            .attr("fill", "none");
+    }
+
+
+    // 14 hexagons 6 quads
+    var num_vertices = 36;
+    var spec  = [ [  0,  1,  7, 13, 12,  6 ],
+                  [  1,  2,  8, 15, 14,  7 ],
+                  [  2,  3,  9, 17, 16,  8 ],
+                  [  3,  4, 10, 19, 18,  9 ],
+                  [  4,  5, 11, 21, 20, 10 ],
+                  [  5,  0,  6, 23, 22, 11 ],
+                  [ 12, 13, 25, 31, 30, 24 ],
+                  [ 14, 15, 26, 32, 31, 25 ],
+                  [ 16, 17, 27, 33, 32, 26 ],
+                  [ 18, 19, 28, 34, 33, 27 ],
+                  [ 20, 21, 29, 35, 34, 28 ],
+                  [ 22, 23, 24, 30, 35, 29 ],
+                ];
+
+
+    // SLinX
+    var num_vertices = 28;
+    var spec  = [ 
+                  [ 18, 19, 26, 11, 14,  1 ],
+                  [ 11, 26, 27, 16, 17, 10 ],
+                  [ 15, 14, 11, 10, 21, 20 ],
+                  [ 21, 10, 17,  2, 23,  8 ],
+                  [  5, 24, 13, 12,  3,  0 ],
+                  [ 24, 19, 18, 13         ],
+                  [  8,  9, 20, 21         ],
+                  [ 12, 13, 18,  1,  6,  7 ],
+                  [  3, 12,  7, 22, 23,  2 ],
+                  [  9, 22,  7,  6, 15, 20 ],
+                  [  4,  5,  0, 25         ],
+                  [  4, 25, 16, 27         ]
+                ];
+    
+
+    // 14 hexagons 6 quads
+    // var num_vertices = 16;
+    // var spec  = [ [  0,  1,  5,  4         ],
+    //               [  4,  5,  6,  7,  8,  9 ],
+    //               [ 10, 11, 12, 13, 14, 15 ],
+    //               [  8,  7, 11, 10         ],
+    //               [ 14, 13,  2,  3         ],
+    //               [  7,  6, 12, 11         ],
+    //               [  9,  8, 10, 15         ],
+    //               [  0,  1,  2,  3         ],
+    //               [  2,  3, 14, 13         ]
+    //             ];
+
+    // initialize a simple cube model
+    for (var i=0;i<num_vertices;i++) {
+	this.vertices.push(new Vertex());
+    }
+
+
+
+
+
+
+}
+
 
 Model.prototype.updateCamera = function() {
 
